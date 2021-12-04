@@ -1,6 +1,7 @@
 package ru.netology.manager;
 
 import ru.netology.domain.Film;
+import ru.netology.repository.FilmRepository;
 
 import static java.lang.System.arraycopy;
 
