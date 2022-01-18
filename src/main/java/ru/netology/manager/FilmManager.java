@@ -1,48 +1,40 @@
 package ru.netology.manager;
 
 import ru.netology.domain.Film;
-
-import static java.lang.System.arraycopy;
+import ru.netology.repository.FilmRepository;
 
 public class FilmManager {
-    private int filmsQuantity = 10;
+    private int filmsQuantity;
     private Film[] films = new Film[filmsQuantity];
 
-    public FilmManager(int filmsQuantity) {
+    FilmRepository repo = new FilmRepository ();
 
-        this.filmsQuantity = filmsQuantity;
+    public FilmManager(FilmRepository repository) {
     }
 
-    public FilmManager() {
-
-        this.filmsQuantity = 10;
+    public Film[] findAll() {
+        Film[] films = repo.findAll();
+        return films;
     }
 
-    public void addNewFilm(Film film) {
-        int length = films.length + 1;
-        Film[] tmp = new Film[length];
-        for (int i = 0; i < films.length; i++) {
-            tmp[i] = films[i];
-        }
-        System.arraycopy (films, 0, tmp, 0, films.length);
-        int lastIndex = tmp.length - 1;
-        tmp[lastIndex] = film;
-        films = tmp;
+    public Film[] addNewFilm(Film film) {
+        repo.saveNew (film);
+        return films;
     }
 
-    public Film[] getLast10Films() {
-        Film[] result = new Film [filmsQuantity];
-        int counter = 0;
-        for (int i = 0; i < filmsQuantity; i++) {
-            int index = films.length - i - 1;
-            result[counter] = films[index];
-            counter++;
-        }
+    public Film findById(int id) {
+        Film result = repo.findById(id);
+        return result;
+    }
 
-        Film[] finalResult = new Film[counter];
-        arraycopy(result, 0, finalResult, 0, counter);
+    public Film[] removeById(int id) {
+        repo.removeById(id);
+        return films;
+    }
 
-        return finalResult;
+    public Film [] removeAll() {
+        Film [] result = repo.removeAll();
+        return  result;
     }
 
 }

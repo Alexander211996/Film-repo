@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 public class Film {
     private int id;
     private String filmName;
-
 }
